@@ -17,7 +17,7 @@ def read_fasta(file_name):
         for line in f:
             if line.startswith(">"):
                 data_set.append((name, dna))
-                name = line.strip()
+                name = line.strip()[1:]
                 dna = ""
             else:
                 dna += line.strip()
