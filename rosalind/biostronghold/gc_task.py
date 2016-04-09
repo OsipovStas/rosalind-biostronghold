@@ -9,20 +9,25 @@ def count_gc(dna):
     return count / float(len(dna))
 
 
-def read_fasta(file_name):
+def parse_fasta(f):
     data_set = []
-    with open(file_name) as f:
-        name = ""
-        dna = ""
-        for line in f:
-            if line.startswith(">"):
-                data_set.append((name, dna))
-                name = line.strip()[1:]
-                dna = ""
-            else:
-                dna += line.strip()
-        data_set.append((name, dna))
+    name = ""
+    dna = ""
+    for line in f:
+        if line.startswith(">"):
+            data_set.append((name, dna))
+            name = line.strip()[1:]
+            dna = ""
+        else:
+            dna += line.strip()
+    data_set.append((name, dna))
     return data_set[1:]
+
+
+def read_fasta(file_name):
+    with open(file_name) as f:
+        data_set = parse_fasta(f)
+    return data_set
 
 
 if __name__ == "__main__":
